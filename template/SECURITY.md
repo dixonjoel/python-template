@@ -1,29 +1,19 @@
-# Security Policy
+<!-- Begin NI SECURITY.md V1.0 -->
 
-## Supported Versions
+# Security
 
-We support the following versions of {{package_display_name}}:
+NI views the security of our software products as an important part of our commitment to our users.  This includes source code repositories managed through the [NI](https://github.com/ni) GitHub organization.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 0.1.x   | :white_check_mark: |
+## Reporting Security Issues
 
-## Reporting a Vulnerability
+We encourage you to report security vulnerabilities to us privately so we can follow the principle of [Coordinated Vulnerability Disclosure (CVD)](https://vuls.cert.org/confluence/display/CVD).  This allows us time to thoroughly investigate security issues and publicly disclose them when appropriate.
 
-If you discover a security vulnerability, please send an email to {{security_email}}.
-All security vulnerabilities will be promptly addressed.
+**Please do not report security vulnerabilities through public GitHub issues.**
 
-Please include the following information in your report:
+Instead, please report them by sending an email to [security@ni.com](mailto:security@ni.com) with sufficient details about the type of issue, the impact of the issue, and how to reproduce the issue.  You may use the [NI PGP key](https://www.ni.com/en/support/security/pgp.html) to encrypt any sensitive communications you send to us. When you notify us of a potential security issue, our remediation process includes acknowledging receipt and coordinating any necessary response activities with you. 
 
-- A description of the vulnerability
-- Steps to reproduce the issue
-- Potential impact of the vulnerability
-- Any suggested fixes or mitigations
+## Learn More
 
-We will acknowledge your email within 48 hours and will send a more detailed response within 72 hours indicating the next steps in handling your report.
+To learn more about NI Security, please see [https://ni.com/security](https://ni.com/security)
 
-## Security Updates
-
-Security updates will be released as patch versions and will be documented in our [CHANGELOG.md](CHANGELOG.md).
-
-We recommend always using the latest version of {{package_display_name}} to ensure you have the latest security updates.
+<!-- End NI SECURITY.md -->

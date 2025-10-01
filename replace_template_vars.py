@@ -78,15 +78,6 @@ def rename_directories(base_path: Path, variables: Dict[str, str]) -> None:
                 new_package_path = new_namespace_path / variables['package_name']
                 old_package_path.rename(new_package_path)
                 print(f"Renamed: {old_package_path} -> {new_package_path}")
-    
-    # Rename workflow file
-    workflow_path = base_path / ".github" / "workflows"
-    if workflow_path.exists():
-        old_workflow = workflow_path / "check_{{package_name}}.yml"
-        if old_workflow.exists():
-            new_workflow = workflow_path / f"check_{variables['package_name']}.yml"
-            old_workflow.rename(new_workflow)
-            print(f"Renamed: {old_workflow} -> {new_workflow}")
 
 
 def main() -> int:
