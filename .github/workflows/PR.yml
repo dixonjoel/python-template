@@ -1,0 +1,28 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+      - main
+      - 'releases/**'
+
+jobs:
+  check_analyzers:
+      name: Check analyzers for {{package_full_name}}
+      uses: ./.github/workflows/check_{{package_name}}.yml
+  check_examples:
+      name: Check analyzers for examples
+      uses: ./.github/workflows/check_examples.yml
+  check_docs:
+    name: Check docs for {{package_full_name}}
+    uses: ./.github/workflows/check_docs.yml
+  run_unit_tests:
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+        python-version: [3.9, '3.10', 3.11, 3.12, 3.13]
+    name: Run unit tests
+    uses: ./.github/workflows/run_unit_tests.yml
+    with:
+      python-version: ${{ matrix.python-version }}
+      os: ${{ matrix.os }}
