@@ -1,1 +1,1 @@
-"""Unit tests package marker."""
+"""{{package_display_name}} unit tests."""
