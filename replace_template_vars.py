@@ -57,24 +57,7 @@ def replace_in_file(file_path: Path, variables: Dict[str, str]) -> None:
         print(f"Error updating {file_path}: {e}")
 
 
-def handle_codeowners_file(base_path: Path) -> None:
-    """Handle CODEOWNERS file transformation."""
-    github_path = base_path / ".github"
-    if not github_path.exists():
-        return
-    
-    codeowners_path = github_path / "CODEOWNERS"
-    codeowners_template_path = github_path / "CODEOWNERS_TEMPLATE"
-    
-    # Remove existing CODEOWNERS (if it exists)
-    if codeowners_path.exists():
-        codeowners_path.unlink()
-        print(f"Removed: {codeowners_path}")
-    
-    # Rename CODEOWNERS_TEMPLATE to CODEOWNERS
-    if codeowners_template_path.exists():
-        codeowners_template_path.rename(codeowners_path)
-        print(f"Renamed: {codeowners_template_path} -> {codeowners_path}")
+# CODEOWNERS handling is no longer needed - template has the correct file structure
 
 
 def rename_directories(base_path: Path, variables: Dict[str, str]) -> None:
@@ -109,26 +92,38 @@ def rename_directories(base_path: Path, variables: Dict[str, str]) -> None:
 def main() -> int:
     """Main function."""
     parser = argparse.ArgumentParser(description="Replace template variables")
-    parser.add_argument("--template-dir", default=".", help="Template directory path")
-    parser.add_argument("--output-dir", help="Output directory (default: template-dir)")
+    parser.add_argument("--template-dir", default="template", help="Template directory path")
+    parser.add_argument("--output-dir", help="Output directory (default: current directory)")
     parser.add_argument("--config", help="Config file with variable values")
     
     args = parser.parse_args()
     
     template_dir = Path(args.template_dir).resolve()
-    output_dir = Path(args.output_dir or args.template_dir).resolve()
+    output_dir = Path(args.output_dir or ".").resolve()
     
     if not template_dir.exists():
         print(f"Error: Template directory {template_dir} does not exist")
         return 1
     
-    # Copy template to output directory if different
-    if template_dir != output_dir:
-        if output_dir.exists():
-            print(f"Error: Output directory {output_dir} already exists")
-            return 1
-        shutil.copytree(template_dir, output_dir)
-        print(f"Copied template to: {output_dir}")
+    # Always copy template to output directory
+    if template_dir == output_dir:
+        print(f"Error: Cannot use template directory {template_dir} as output directory")
+        return 1
+    
+    if output_dir.exists() and any(output_dir.iterdir()):
+        print(f"Error: Output directory {output_dir} already exists and is not empty")
+        return 1
+    
+    # Create output directory if it doesn't exist
+    output_dir.mkdir(parents=True, exist_ok=True)
+    
+    # Copy template contents to output directory
+    for item in template_dir.iterdir():
+        if item.is_dir():
+            shutil.copytree(item, output_dir / item.name)
+        else:
+            shutil.copy2(item, output_dir / item.name)
+    print(f"Copied template to: {output_dir}")
     
     # Get variables
     if args.config:
@@ -149,8 +144,6 @@ def main() -> int:
             # Skip binary files and special directories
             if any(part.startswith('.git') for part in file_path.parts):
                 continue
-            if file_path.name == 'replace_template_vars.py':
-                continue
                 
             replace_in_file(file_path, variables)
     
@@ -158,9 +151,7 @@ def main() -> int:
     print("\nRenaming directories...")
     rename_directories(output_dir, variables)
     
-    # Handle CODEOWNERS file transformation
-    print("\nHandling CODEOWNERS files...")
-    handle_codeowners_file(output_dir)
+    # CODEOWNERS handling is no longer needed - template has the correct file structure
     
     print("\nTemplate replacement complete!")
     print(f"Project created in: {output_dir}")
