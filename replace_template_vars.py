@@ -57,6 +57,26 @@ def replace_in_file(file_path: Path, variables: Dict[str, str]) -> None:
         print(f"Error updating {file_path}: {e}")
 
 
+def handle_codeowners_file(base_path: Path) -> None:
+    """Handle CODEOWNERS file transformation."""
+    github_path = base_path / ".github"
+    if not github_path.exists():
+        return
+    
+    codeowners_path = github_path / "CODEOWNERS"
+    codeowners_template_path = github_path / "CODEOWNERS_TEMPLATE"
+    
+    # Remove existing CODEOWNERS (if it exists)
+    if codeowners_path.exists():
+        codeowners_path.unlink()
+        print(f"Removed: {codeowners_path}")
+    
+    # Rename CODEOWNERS_TEMPLATE to CODEOWNERS
+    if codeowners_template_path.exists():
+        codeowners_template_path.rename(codeowners_path)
+        print(f"Renamed: {codeowners_template_path} -> {codeowners_path}")
+
+
 def rename_directories(base_path: Path, variables: Dict[str, str]) -> None:
     """Rename directories that contain template variables."""
     # Rename source directories
@@ -86,7 +106,7 @@ def rename_directories(base_path: Path, variables: Dict[str, str]) -> None:
             print(f"Renamed: {old_workflow} -> {new_workflow}")
 
 
-def main():
+def main() -> int:
     """Main function."""
     parser = argparse.ArgumentParser(description="Replace template variables")
     parser.add_argument("--template-dir", default=".", help="Template directory path")
@@ -137,6 +157,10 @@ def main():
     # Rename directories
     print("\nRenaming directories...")
     rename_directories(output_dir, variables)
+    
+    # Handle CODEOWNERS file transformation
+    print("\nHandling CODEOWNERS files...")
+    handle_codeowners_file(output_dir)
     
     print("\nTemplate replacement complete!")
     print(f"Project created in: {output_dir}")
