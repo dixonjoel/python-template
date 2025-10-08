@@ -1,122 +1,159 @@
-# Python Project Template# {{package_display_name}}
+# Python Project Template
 
+A comprehensive Python project template with modern tooling and best practices.
 
+## 🚀 Quick Start
 
-A comprehensive Python project template with modern tooling and best practices.{{package_description}}
+Create a new Python project from this template:
 
+### Option 1: Using the Windows Setup Script
+```cmd
+setup_template.bat --output-dir my-new-project
+```
 
+### Option 2: Using Python Script Directly
+```bash
+python replace_template_vars.py --output-dir my-new-project
+```
 
-## Features## About
+### Option 3: Manual Setup
+1. Copy the `template/` directory contents to your desired location
+2. Run the replacement script to customize template variables
+3. Initialize as a new Git repository
 
+## 📋 What You'll Get
 
+The template creates a complete Python project with:
 
-- **Modern Python packaging** with Poetry for dependency management`{{package_full_name}}` is the main Python package in this repo.
+### 🏗️ **Modern Python Packaging**
+- **Poetry** for dependency management and packaging
+- **Namespace packages** support for organizations
+- **pyproject.toml** configuration
 
-- **Code quality tools** with pre-commit hooks, mypy, ruff, and pytest
+### 🔧 **Development Tools**
+- **pytest** for testing with comprehensive configuration
+- **mypy** and **pyright** for static type checking
+- **ruff** for fast linting and formatting
+- **bandit** for security analysis
+- **pre-commit hooks** for code quality
 
-- **Documentation** with Sphinx and automatic API documentation{{author_name}} created and supports this package.
+### 📚 **Documentation**
+- **Sphinx** with automatic API documentation
+- **Read the Docs** integration
+- Example documentation structure
 
-- **CI/CD** with GitHub Actions
+### 🔄 **CI/CD Pipeline**
+- **GitHub Actions** workflows for:
+  - Pull request validation
+  - Multi-platform testing (Windows, Ubuntu, macOS)
+  - Python 3.9-3.13 compatibility testing
+  - Documentation building
+  - PyPI publishing
+- **Renovate** for dependency updates
 
-- **Security** with safety checks and dependency scanning## Operating System Support
+### 🛡️ **Security & Quality**
+- Security scanning with Bandit
+- Dependency vulnerability checks
+- Code coverage reporting
+- CODEOWNERS file for repository governance
 
-- **Development environment** with dev containers support
+## 📝 Setup Process
 
-`{{package_full_name}}` supports Windows and Linux operating systems.
+When you run the setup script, you'll be prompted for:
 
-## Quick Start
+- **Package name** (URL-friendly, short name)
+- **Package namespace** (organization/company name)
+- **Package display name** (human-readable name)
+- **Package description**
+- **Author and maintainer information**
+- **Repository URLs**
+- **Security contact email**
+- **Code owner GitHub handles**
 
-## Python Version Support
+## 📁 Template Structure
 
-### Option 1: Using the Setup Script (Windows)
+```
+template/
+├── .github/           # GitHub Actions workflows and templates
+├── docs/             # Sphinx documentation
+├── examples/         # Usage examples
+├── src/              # Source code with namespace structure
+├── tests/            # Test suite with pytest configuration
+├── .gitignore        # Python-specific gitignore
+├── .readthedocs.yaml # Read the Docs configuration
+├── pyproject.toml    # Poetry and tool configuration
+├── LICENSE           # MIT License template
+└── README.md         # Project README template
+```
 
-`{{package_full_name}}` supports CPython 3.9+.
+## � Detailed Usage Instructions
+
+### Creating a New Project
+
+1. **Run the setup script** (choose one method above)
+2. **Follow the interactive prompts** to enter your project details:
+   - Package name (e.g., `data-processor`)
+   - Package namespace (e.g., `mycompany`)
+   - Package display name (e.g., `My Data Processor`)
+   - Package description
+   - Author information
+   - Repository URLs
+   - Security contact
+   - Code owners
+
+3. **The script will:**
+   - Copy all template files to your output directory
+   - Replace all `{{template_variables}}` with your values
+   - Rename namespace and package directories
+   - Generate a ready-to-use Python project
+
+### Example Usage
 
 ```cmd
+# Windows
+setup_template.bat --output-dir my-awesome-project
 
-setup_template.bat --output-dir my-new-project## Installation
-
+# Or cross-platform
+python replace_template_vars.py --output-dir my-awesome-project
 ```
 
-You can directly install the `{{package_full_name}}` package using `pip` or by listing it as a
+This creates a new directory `my-awesome-project/` with:
+- Complete Python package structure
+- Configured development tools
+- GitHub Actions workflows
+- Documentation setup
+- Test framework
 
-### Option 2: Using Python Script Directlydependency in your project's `pyproject.toml` file.
+## �🔧 After Creating Your Project
 
+1. **Navigate to your new project directory**
+2. **Review and customize the generated files**
+3. **Initialize Git repository:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Initial commit from template"
+   ```
+4. **Install dependencies:**
+   ```bash
+   poetry install --with dev,lint,test,docs
+   ```
+5. **Run tests to verify setup:**
+   ```bash
+   poetry run pytest
+   ```
+6. **Set up your GitHub repository and push code**
 
-
-```bash```bash
-
-python replace_template_vars.py --output-dir my-new-projectpip install {{package_full_name}}
-
-``````
-
-
-
-### Option 3: Manual SetupOr add to your `pyproject.toml`:
-
-
-
-1. Copy the `template/` directory to your desired location```toml
-
-2. Run the replacement script to customize the template variables[tool.poetry.dependencies]
-
-3. Follow the setup instructions{{package_full_name}} = "^0.1.0"
-
-```
-
-## Template Structure
-
-## Quick Start
-
-The `template/` directory contains all the files that will be copied to your new project:
-
-```python
-
-- **Source code**: `src/` with namespace and package structureimport {{package_namespace}}.{{package_name}} as {{package_name}}
-
-- **Tests**: `tests/` with pytest configuration
-
-- **Documentation**: `docs/` with Sphinx setup# Add your quick start example here
-
-- **Examples**: `examples/` with usage examples```
-
-- **Configuration**: Poetry, mypy, ruff, and other tool configurations
-
-- **CI/CD**: GitHub Actions workflows for testing and deployment## Documentation
-
-
-
-## Template VariablesFull documentation is available at: {{documentation_url}}
-
-
-
-When setting up a new project, you'll be prompted for:## Contributing
-
-
-
-- Package name and namespaceSee [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to contribute to this project.
-
-- Author and maintainer information
-
-- Repository URLs## License
-
-- Security contact information
-
-- Code owner GitHub handlesThis project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Development
+## 🤝 Contributing to This Template
 
 This repository contains:
-
 - `template/` - The actual template files
 - `replace_template_vars.py` - Setup script for customizing templates
 - `setup_template.bat` - Windows batch script wrapper
 - `.github/` - Administration files for this template repository
 
-## Contributing
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing improvements to this template.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on contributing to this template.
+## 📄 License
 
-## License
-
-This template is released under the MIT License. Projects created from this template can use any license.
+This template is released under the MIT License. Projects created from this template can use any license of your choice.
